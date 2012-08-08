@@ -35,7 +35,7 @@ template "/etc/appshot/appshot.cfg" do
   mode '0640'
   owner "root"
   group "root"
-  source "appshot.conf.erb"
+  source "appshot.cfg.erb"
   variables(
     :appshot_name           => node['appshot']['name'],
     :database_type          => node['appshot']['database']['type'],
