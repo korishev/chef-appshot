@@ -1,6 +1,12 @@
 appshot "<%= @appshot_name %>" do
+  <% if @database_name %>
   mysql name: "<%= @database_name %>", port: <%= @database_port %>, user: "<%= @database_username %>"
+  <% end %>
+  <% if @filesystem_mountpoint %>
   xfs mount_point: <%= @filesystem_mountpoint %>
+  <% end %>
   ebs_snapshot volume_id: "<%= @volume_id %>", aws_access_key_id: "<%= @aws_access_key_id %>", aws_secret_access_key: "<%= @aws_secret_access_key %>"
+  <% if @snapshots_to_keep %>
   ebs_prune volume_id: "<%= @volume_id %>", snapshots_to_keep: <%= @snapshots_to_keep %>, minimum_retention_days: <%= @minimum_retention_days %>, aws_access_key_id: "<%= @aws_access_key_id %>", aws_secret_access_key: "<%= @aws_secret_access_key %>"
+  <% end %>
 end
