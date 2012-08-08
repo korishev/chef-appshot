@@ -31,7 +31,7 @@ directory "/etc/appshot" do
   mode "0640"
 end
 
-template "/etc/appshot/appshot.conf" do
+template "/etc/appshot/appshot.cfg" do
   mode '0640'
   owner "root"
   group "root"
