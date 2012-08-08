@@ -62,9 +62,9 @@ rvm_gem "appshot" do
 end
 
 cron "appshot" do
-  hour    => node['appshot']['crontab']['hour']
-  minute  => node['appshot']['crontab']['minute']
-  command => node['appshot']['crontab']['command']
+  hour    node['appshot']['crontab']['hour']
+  minute  node['appshot']['crontab']['minute']
+  command node['appshot']['crontab']['command']
 end
 
 rvm_wrapper "run" do
