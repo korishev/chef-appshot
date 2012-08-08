@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: appshot
-# Recipe:: node
+# Recipe:: appshot
 #
 # Copyright 2012, Morgan Nelson
 #
@@ -56,6 +56,7 @@ end
 rvm_gem "appshot" do
   package_name "appshot"
   ruby_string node['appshot']['rvm_ruby_string']
+  version node['appshot']['version']
 end
 
 cron "appshot" do
