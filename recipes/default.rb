@@ -55,7 +55,7 @@ end
 
 rvm_gem "appshot" do
   package_name "appshot"
-  ruby_string "1.9.3@global"
+  ruby_string node['appshot']['rvm_ruby_string']
 end
 
 cron "appshot" do

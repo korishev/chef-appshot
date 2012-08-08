@@ -1,3 +1,4 @@
+default['appshot']['rvm_ruby_string']                     = "1.9.3@global"
 default['appshot']['name']                                = "default"
 default['appshot']['crontab']['hour']                     = 1
 default['appshot']['crontab']['minute']                   = 1
