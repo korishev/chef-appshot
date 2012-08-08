@@ -3,7 +3,7 @@ appshot "<%= @appshot_name %>" do
   mysql name: "<%= @database_name %>", port: <%= @database_port %>, user: "<%= @database_username %>"
   <% end %>
   <% if @filesystem_mountpoint %>
-  xfs mount_point: <%= @filesystem_mountpoint %>
+  xfs mount_point: "<%= @filesystem_mountpoint %>"
   <% end %>
   ebs_snapshot volume_id: "<%= @volume_id %>", aws_access_key_id: "<%= @aws_access_key_id %>", aws_secret_access_key: "<%= @aws_secret_access_key %>"
   <% if @snapshots_to_keep %>
