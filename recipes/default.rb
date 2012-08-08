@@ -53,6 +53,8 @@ template "/etc/appshot/appshot.conf" do
   )
 end
 
+rvm_environment node['appshot']['rvm_ruby_string']
+
 rvm_gem "appshot" do
   package_name "appshot"
   ruby_string node['appshot']['rvm_ruby_string']
