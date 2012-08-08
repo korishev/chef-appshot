@@ -1,3 +1,4 @@
+default['appshot']['name']                                = "default mysql"
 default['appshot']['crontab']['hour']                     = 1
 default['appshot']['crontab']['minute']                   = 1
 default['apphsot']['crontab']['command']                  = "appshot"

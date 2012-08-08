@@ -17,6 +17,8 @@ ATTRIBUTES
 appshot
 -------
 
+* `node[appshot][name]`                        - The name of the appshot
+
 * `node[appshot][aws][aws_access_key_id]`      - Your Amazon AWS access key id
 * `node[appshot][aws][aws_secret_access_key]`  - Your Amazon AWS secret access key
 * `node[appshot][aws][snapshots_to_keep]`      - The maximum number of snapshots to keep
