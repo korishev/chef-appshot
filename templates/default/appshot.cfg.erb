@@ -1,6 +1,9 @@
 appshot "<%= @appshot_name %>" do
-  <% if @database_name %>
-  mysql name: "<%= @database_name %>", port: <%= @database_port %>, user: "<%= @database_username %>"
+  <% if @database_type == "mongodb" %>
+    # Signalled db port: <%= @database_port %>
+  <%= @database_type %> port: <%= @database_port || 27017 %><%= ", command_name: #{@database_command}" if @database_command %>
+  <% elsif @database_type == "redis" %>
+    <%= @database_type %> <%= "command_name: #{@database_command}" if @database_command %><%= ", " if (@database_command && @save_before_snapshot)%><% "save_before_snapshot: #{@save_before_snapshot}" if @save_before_snapshot %>
   <% end %>
   <% if @filesystem_mountpoint %>
   xfs mount_point: "<%= @filesystem_mountpoint %>"

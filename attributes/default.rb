@@ -9,4 +9,5 @@ default['appshot']['filesystem']
 default['appshot']['aws']
 default['appshot']['ebs_snapshot']
 default['appshot']['ebs_prune']
+default['appshot']['db_volume_id']
 
