@@ -31,18 +31,6 @@ directory "/etc/appshot" do
   mode "0640"
 end
 
-ruby_block "find the amazon ebs volume id for appshot" do
-  block do
-    node.set['appshot']['db_volume_id'] = if node['aws']['ebs_volume']['db_volume']
-                     node['aws']['ebs_volume']['db_volume']['volume_id']
-                   elsif node['aws']['ebs_volume']['data_volume']
-                     node['aws']['ebs_volume']['data_volume']['volume_id']
-                   end
-    node.save
-  end
-end
-
-
 template "/etc/appshot/appshot.cfg" do
   mode '0640'
   owner "root"
@@ -63,7 +51,6 @@ template "/etc/appshot/appshot.cfg" do
     :aws_secret_access_key  => node['appshot']['aws']['aws_secret_access_key'],
     :snapshots_to_keep      => node['appshot']['ebs_prune']['snapshots_to_keep'],
     :minimum_retention_days => node['appshot']['ebs_prune']['minimum_retention_days'],
-    :volume_id              => node['appshot']['db_volume_id'],
   )
 end
 
