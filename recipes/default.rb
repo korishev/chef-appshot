@@ -31,6 +31,14 @@ directory "/etc/appshot" do
   mode "0640"
 end
 
+db_options = []
+db_options << %Q(name: "#{node['appshot']['database']['name']}") if node['appshot']['database']['name']
+db_options << %Q(port: "#{node['appshot']['database']['port']}") if node['appshot']['database']['port']
+db_options << %Q(database_command: "#{node['appshot']['database']['command']}") if node['appshot']['database']['command']
+db_options << %Q(save_before_snapshot: "#{node['appshot']['database']['save_before_snapshot']}") if node['appshot']['database']['save_before_snapshot']
+db_options << %Q(username: "#{node['appshot']['database']['username']}") if node['appshot']['database']['username']
+db_options << %Q(password: "#{node['appshot']['database']['password']}") if node['appshot']['database']['password']
+
 template "/etc/appshot/appshot.cfg" do
   mode '0640'
   owner "root"
@@ -39,12 +47,7 @@ template "/etc/appshot/appshot.cfg" do
   variables(
     :appshot_name           => node['appshot']['name'],
     :database_type          => node['appshot']['database']['type'],
-    :database_name          => node['appshot']['database']['name'],
-    :database_password      => node['appshot']['database']['password'],
-    :database_port          => node['appshot']['database']['port'],
-    :database_username      => node['appshot']['database']['username'],
-    :database_command       => node['appshot']['database']['command'],
-    :save_before_snapshot   => node['appshot']['database']['save_before_snapshot'],
+    :database_options       => db_options.join(", "),
     :filesystem_type        => node['appshot']['filesystem']['type'],
     :filesystem_mountpoint  => node['appshot']['filesystem']['mount_point'],
     :aws_access_key_id      => node['appshot']['aws']['aws_access_key_id'],
@@ -56,10 +59,18 @@ end
 
 rvm_environment node['appshot']['rvm_ruby_string']
 
+
 rvm_gem "appshot" do
   package_name "appshot"
   ruby_string node['appshot']['rvm_ruby_string']
   version node['appshot']['version']
+end
+
+node['appshot']['gem_packages'].each do |gem_name, gem_version|
+  rvm_gem gem_name do
+    ruby_string node['appshot']['rvm_ruby_string']
+    version gem_version if gem_version && gem_version.length > 0
+  end
 end
 
 cron "appshot" do
