@@ -4,7 +4,7 @@ default['appshot']['crontab']['hour']                     = 1
 default['appshot']['crontab']['minute']                   = 1
 default['appshot']['crontab']['command']                  = "/usr/local/rvm/bin/run_appshot"
 
-default['appshot']['database']
+default['appshot']['databases']
 default['appshot']['filesystem']
 default['appshot']['aws']
 default['appshot']['ebs_snapshot']

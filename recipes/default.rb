@@ -31,13 +31,19 @@ directory "/etc/appshot" do
   mode "0640"
 end
 
-db_options = []
-db_options << %Q(name: "#{node['appshot']['database']['name']}") if node['appshot']['database']['name']
-db_options << %Q(port: "#{node['appshot']['database']['port']}") if node['appshot']['database']['port']
-db_options << %Q(database_command: "#{node['appshot']['database']['command']}") if node['appshot']['database']['command']
-db_options << %Q(save_before_snapshot: "#{node['appshot']['database']['save_before_snapshot']}") if node['appshot']['database']['save_before_snapshot']
-db_options << %Q(username: "#{node['appshot']['database']['username']}") if node['appshot']['database']['username']
-db_options << %Q(password: "#{node['appshot']['database']['password']}") if node['appshot']['database']['password']
+databases = []
+node['appshot']['databases'].each do |key, value|
+  if value['snapshot'] == true
+    options = []
+    options << %Q(name: "#{value['name']}") if value['name']
+    options << %Q(port: "#{value['port']}") if value['port']
+    options << %Q(database_command: "#{value['command']}") if value['command']
+    options << %Q(save_before_snapshot: "#{value['save_before_snapshot']}") if value['save_before_snapshot']
+    options << %Q(username: "#{value['username']}") if value['username']
+    options << %Q(password: "#{value['password']}") if value['password']
+    databases << "#{key} " + options.join(", ")
+  end
+end
 
 template "/etc/appshot/appshot.cfg" do
   mode '0640'
@@ -46,8 +52,7 @@ template "/etc/appshot/appshot.cfg" do
   source "appshot.cfg.erb"
   variables(
     :appshot_name           => node['appshot']['name'],
-    :database_type          => node['appshot']['database']['type'],
-    :database_options       => db_options.join(", "),
+    :databases              => databases,
     :filesystem_type        => node['appshot']['filesystem']['type'],
     :filesystem_mountpoint  => node['appshot']['filesystem']['mount_point'],
     :aws_access_key_id      => node['appshot']['aws']['aws_access_key_id'],

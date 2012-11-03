@@ -1,10 +1,6 @@
 appshot "<%= @appshot_name %>" do
-  <% if @database_type == "mongodb" %>
-  mongodb <%= @database_options %>
-  <% elsif @database_type == "redis" %>
-  redis <%= @database_options %>
-  <% elsif @database_type == "mysql" %>
-  mysql <%= @database_options %>
+  <% @databases.each do |database| %>
+  <%= database %>
   <% end %>
   <% if @filesystem_mountpoint %>
   xfs mount_point: "<%= @filesystem_mountpoint %>"
