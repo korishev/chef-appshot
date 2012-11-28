@@ -3,6 +3,7 @@ default['appshot']['name']                                = "default"
 default['appshot']['crontab']['hour']                     = 1
 default['appshot']['crontab']['minute']                   = 1
 default['appshot']['crontab']['command']                  = "/usr/local/rvm/bin/run_appshot"
+default['appshot']['wrapper_prefix']                      = "run"
 
 default['appshot']['databases']
 default['appshot']['filesystem']
@@ -11,4 +12,3 @@ default['appshot']['ebs_snapshot']
 default['appshot']['ebs_prune']
 default['appshot']['db_volume_id']
 default['appshot']['gem_packages']
-

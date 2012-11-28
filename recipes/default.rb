@@ -84,7 +84,8 @@ cron "appshot" do
   command node['appshot']['crontab']['command']
 end
 
-rvm_wrapper "run" do
+rvm_wrapper "appshot for #{node['appshot']['rvm_ruby_string']}" do
   binary "appshot"
+  prefix node['appshot']['wrapper_prefix']
   ruby_string node['appshot']['rvm_ruby_string']
 end
